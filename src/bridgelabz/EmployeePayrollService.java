@@ -17,9 +17,8 @@ public class EmployeePayrollService {
             connection = DriverManager.getConnection(jdbcURL, userName, password);
             System.out.println("Connection done!!!");
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employee_payroll WHERE name = ?");
-            preparedStatement.setString(1, "Ashwini");
-            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee_payroll WHERE start BETWEEN '2021-02-05' AND NOW()");
             while (resultSet.next()) {
                 System.out.println(resultSet.getInt("id") + " | " + resultSet.getString("name") + " | " + resultSet.getString("gender") + " | " + resultSet.getString("phone_number") + " | " + resultSet.getString("address") + " | " + resultSet.getString("department") + " | " + resultSet.getDouble("basicPay") + " | " + resultSet.getDouble("deductions") + " | " + resultSet.getDouble("taxablePay") + " | " + resultSet.getDouble("netPay") + " | " + resultSet.getDouble("incomeTax") + " | " + resultSet.getDate("start"));
             }
